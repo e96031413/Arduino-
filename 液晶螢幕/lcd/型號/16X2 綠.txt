@@ -1,0 +1,26 @@
+#include <LiquidCrystal_I2C_AvrI2C.h>
+
+// Set the LCD address to 0x27 for a 16 chars and 2 line display
+LiquidCrystal_I2C_AvrI2C lcd(0x3F, 16, 2);
+
+
+void setup() {
+  lcd.begin();
+  lcd.backlight();
+  delay(250);
+  lcd.noBacklight(); // 關閉背光
+  delay(250);
+  lcd.backlight(); delay(250);
+  lcd.noBacklight(); // 關閉背光
+  delay(250);
+  lcd.backlight();
+  lcd.print("Hello");
+   lcd.setCursor(0,1);   //游標移到左上角
+   lcd.print("My name is Wali");
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+
+}

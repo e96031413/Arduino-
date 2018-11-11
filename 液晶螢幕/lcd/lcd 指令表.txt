@@ -1,0 +1,16 @@
+
+  lcd.begin();必打
+  lcd.clear();  //清除螢幕
+lcd.autoscroll();//LCD超出16位元捲動
+//lcd.noAutoscroll();//LCD超出16位元不捲動
+//lcd.scrollDisplayLeft();  //往左捲動
+//lcd.scrollDisplayRirht();  //往右捲動
+// lcd.cursor(); // 顯示游標
+// lcd.noCursor(); // 不顯示游標
+// lcd.blink(); // 讓游標閃爍
+//lcd.noBlink ();//讓游標不閃爍
+//lcd.display();//打開LCD
+//lcd.noDisplay();//關閉LCD
+//lcd.leftToRight();//往右邊列印
+//lcd.rightToLeft();//往左邊列印
+

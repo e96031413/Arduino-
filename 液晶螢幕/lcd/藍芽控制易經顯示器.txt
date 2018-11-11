@@ -1,0 +1,72 @@
+/*
+  AnalogReadSerial
+  Reads an analog input on pin 0, prints the result to the serial monitor.
+  Attach the center pin of a potentiometer to pin A0, and the outside pins to +5V and ground.
+
+ This example code is in the public domain.
+ */
+//Compatible with the Arduino IDE 1.0
+//Library version:1.1
+#include <SoftwareSerial.h>   // 引用程式庫
+ 
+// 定義連接藍牙模組的序列埠
+SoftwareSerial BT(13,12 ); // 接收腳, 傳送腳
+char val;  // 儲存接收資料的變數
+
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x3F,16,2);  // set the LCD address to 0x27 for a 16 chars and 2 line display
+
+// the setup routine runs once when you press reset:
+void setup() {
+  // initialize serial communication at 9600 bits per second:
+  Serial.begin(9600);
+  lcd.init();           
+  
+    Serial.println("BT is ready!");
+ 
+  // 設定藍牙模組的連線速率
+  // 如果是HC-05，請改成38400
+  BT.begin(9600);// initialize the lcd 
+ 
+  // Print a message to the LCD.
+ 
+   lcd.backlight(); // 開啟背光
+    delay(250);
+    lcd.noBacklight(); // 關閉背光
+    delay(250);
+ lcd.backlight();
+  lcd.print("Hello, world!");
+
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+if (BT.available()) 
+{
+    val = BT.read();//令val為接收到的訊號
+    Serial.println(val);//放大鏡顯示收到的訊號
+     lcd.clear();  //清除螢幕
+      lcd.setCursor(0,0);   //游標移到左上角
+if(val=='U')
+    { 
+      lcd.print("MOVE");
+    }
+if(val=='L')
+    { 
+      lcd.print("LEFT");
+    }
+if(val=='R')
+    { 
+      lcd.print("RIGHT");
+    }
+if(val=='D')
+    { 
+      lcd.print("DOWN");
+    }
+    
+}
+    
+  delay(1);        // delay in between reads for stability
+}

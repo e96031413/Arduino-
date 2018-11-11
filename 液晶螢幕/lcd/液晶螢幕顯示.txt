@@ -1,0 +1,47 @@
+/*
+  AnalogReadSerial
+  Reads an analog input on pin 0, prints the result to the serial monitor.
+  Attach the center pin of a potentiometer to pin A0, and the outside pins to +5V and ground.
+
+ This example code is in the public domain.
+ */
+//Compatible with the Arduino IDE 1.0
+//Library version:1.1
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h>
+
+LiquidCrystal_I2C lcd(0x3F,16,2);  // set the LCD address to 0x27 for a 16 chars and 2 line display
+
+// the setup routine runs once when you press reset:
+void setup() {
+  // initialize serial communication at 9600 bits per second:
+  Serial.begin(9600);
+  lcd.init();                      // initialize the lcd 
+ 
+  // Print a message to the LCD.
+  lcd.backlight();
+  lcd.print("Hello, world!");
+
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+  // read the input on analog pin 0:
+  int sensorValue = analogRead(A0);
+  // print out the value you read:
+  Serial.println(sensorValue);
+  if(sensorValue>400)
+  {
+     lcd.clear();  //清除螢幕
+      lcd.setCursor(0,0);   //游標移到左上角
+      
+      
+  
+     lcd.print("WORIN");
+
+     
+    }
+    lcd.scrollDisplayLeft();  //往左捲動
+  delay(400);   //延遲0.4秒
+  delay(1);        // delay in between reads for stability
+}

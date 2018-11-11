@@ -1,0 +1,143 @@
+char val;  // 儲存接收資料的變數
+
+#include <Servo.h>
+Servo myservo;
+
+const int trig = 7;
+const int echo = 8;
+const int inter_time = 200;
+int time = 0;
+
+
+
+int L_1=2;
+int L_2=3;
+
+int R_1=4;
+int R_2=5;
+
+void LM();
+void LM()
+{
+  digitalWrite(L_1,HIGH);
+  digitalWrite(L_2,LOW);
+  }
+
+void LM2();
+void LM2()
+{
+  digitalWrite(L_1,HIGH);
+  analogWrite(L_2,100);
+  }
+  
+void LB();
+void LB()
+{
+  digitalWrite(L_2,HIGH);
+  digitalWrite(L_1,LOW);
+  }
+
+void LB2();
+void LB2()
+{
+  analogWrite(L_2,155);
+  digitalWrite(L_1,LOW);
+  }
+
+
+void LS();
+void LS()
+{
+  digitalWrite(L_2,LOW);
+  digitalWrite(L_1,LOW);
+  }
+
+void RM();
+void RM()
+{
+  digitalWrite(R_1,HIGH);
+  digitalWrite(R_2,LOW);
+  }
+
+void RM2();
+void RM2()
+{
+  digitalWrite(R_1,HIGH);
+  analogWrite(R_2,100);
+  }
+  
+void RB();
+void RB()
+{
+  digitalWrite(R_2,HIGH);
+  digitalWrite(R_1,LOW);
+  }
+
+void RB2();
+void RB2()
+{
+  analogWrite(R_2,155);
+  digitalWrite(R_1,LOW);
+  }
+
+
+void RS();
+void RS()
+{
+  digitalWrite(R_2,LOW);
+  digitalWrite(R_1,LOW);
+  }
+
+void setup() {
+  Serial.begin(9600);   // 與電腦序列埠連線
+  Serial.println("BT is ready!");\
+
+  pinMode (trig, OUTPUT);
+  pinMode (echo, INPUT);
+
+  pinMode(L_1,OUTPUT);
+  pinMode(L_2,OUTPUT);
+  pinMode(R_1,OUTPUT);
+  pinMode(R_2,OUTPUT);
+
+  myservo.attach(6); 
+  myservo.write(90);     
+}
+
+void loop() {
+  float duration, distance;
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(1000);
+  digitalWrite(trig, LOW);
+  duration = pulseIn (echo, HIGH);
+  distance = (duration/2)/29;
+  Serial.print("D = ");
+  Serial.print(distance);
+  Serial.println(" cm");
+  time = time + inter_time;
+  delay(inter_time);
+
+  if(distance>30)
+  {
+    LM2();
+    RM2();
+    myservo.write(90);     
+    }
+    else
+    {
+      RB2();
+      LB2();
+      delay(150);
+      LS();
+      RB(); 
+      myservo.write(135);     
+      delay(100);
+      }
+  
+  if (Serial.available()) 
+  {
+    val = Serial.read();
+    Serial.print(val);
+  }
+
+}

@@ -1,0 +1,51 @@
+
+#include <LiquidCrystal_I2C_AvrI2C.h>//引用 LCD螢幕 含式庫
+// Set the LCD address to 0x27 for a 16 chars and 2 line display
+LiquidCrystal_I2C_AvrI2C lcd(0x3F, 15, 2);//設定LCD螢幕型號 長 高
+
+byte smiley [8] = {
+  B00000,
+  B10001,
+  B00000,
+  B00000,
+  B10001,
+  B01010,
+  B00000,
+};
+byte easy [8] = {
+  B00100,
+  B10101,
+  B00100,
+  B00100,
+  B10101,
+  B01010,
+  B00000,
+};
+void setup() {
+  Serial.begin(9600);//設定Arduino傳輸速率為每秒9600位元組
+  lcd.begin();//設定lcd尺寸
+  lcd.backlight();// 開啟背光
+  lcd.backlight();// 開啟背光
+  delay(250);//延遲0.25秒
+  lcd.noBacklight(); // 關閉背光
+  delay(250);//延遲0.25秒
+  lcd.backlight();// 開啟背光
+  delay(250);//延遲0.25秒
+  lcd.noBacklight(); // 關閉背光
+  delay(250);//延遲0.25秒
+  lcd.backlight();// 開啟背光
+
+  lcd.createChar(0,smiley);
+  lcd.createChar(1,easy);
+  lcd.cursor(); // 顯示游標
+  lcd.blink(); // 讓游標閃爍
+  lcd.clear();  //清除螢幕
+  lcd.setCursor(0, 0);  //游標移到左上角
+}
+
+void loop() {
+  
+  lcd.write(byte(0));
+  lcd.write(byte(1));
+  
+}
